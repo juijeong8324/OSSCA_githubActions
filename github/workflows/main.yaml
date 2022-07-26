@@ -1,0 +1,74 @@
+name : 'My First GitHub Actions Workflow' 
+
+on: push 
+# on은 깃허브 액션이 작동하게 하는 trigger 같은 것 
+
+env:
+  WORKFLOW_LEVEL: 'This value comes fom the workflow level'
+
+jobs: 
+  fist-job: 
+    name: 'first Job'
+    runs-on : 'ubuntu-latest'
+    # ['windows-latest', 'ubuntu-latest','macos-latest'] # 어떤 운영체제에서 실행시킬 것인지 설정!! ㅣ건 3개의 OSd에서 동시에 실행 가능! 
+    
+    env:
+      JOB_LEVEL_1: 'This value comes fom the job level'
+    steps:
+    - name: 'Say Hello World on step 1'
+      shell: bash
+      env:
+       STEP_LEVEL_1: 'This value comes fom the step 1'
+      run: |
+        echo "Hello World from Step 1"
+        echo "$WORKFLOW_LEVEL"
+        echo "$JOB_LEVEL_1"
+        echo "$JOB_LEVEL_2"
+        echo "$STEP_LEVEL_1"
+        echo "$STEP_LEVEL_2"
+
+    - name: 'Say Lorem Ipsum on step 2'
+      shell: pwsh
+      env:
+       STEP_LEVEL_2: 'This value comes fom the step 2'
+      run: |
+        echo "Lorem Ipsum on step 2"
+        echo "$env:WORKFLOW_LEVEL"
+        echo "$env:JOB_LEVEL_1"
+        echo "$env: JOB_LEVEL_2"
+        echo "$env:STEP_LEVEL_1"
+        echo "$env:STEP_LEVEL_2"
+
+#power shell은 변수 가져ㅗ는 방식이 다르지? bash랑 다름 
+  second-job:
+      name: 'first Job'
+      runs-on : 'ubuntu-latest'
+      env:
+        JOB_LEVEL_1: 'This value comes fom the job level'
+      steps:
+        - name: 'Say Hello World on step 1'
+          shell: bash
+          env:
+          STEP_LEVEL_1: 'This value comes fom the step 1'
+          run: |
+            echo "Hello World from Step 1"
+            echo "$WORKFLOW_LEVEL"
+            echo "$JOB_LEVEL_1"
+            echo "$JOB_LEVEL_2"
+            echo "$STEP_LEVEL_1"
+            echo "$STEP_LEVEL_2"
+
+        - name: 'Say Lorem Ipsum on step 2'
+          shell: pwsh
+          env:
+          STEP_LEVEL_2: 'This value comes fom the step 2'
+          run: |
+            echo "Lorem Ipsum on step 2"
+            echo "$env:WORKFLOW_LEVEL"
+            echo "$env:JOB_LEVEL_1"
+            echo "$env: JOB_LEVEL_2"
+            echo "$env:STEP_LEVEL_1"
+            echo "$env:STEP_LEVEL_2"
+# on에 대해 어떤 일을 하게 하는지 정의
+# 각각의 job은 독립적인 서버(머신), 별도의 빌드 서버라고 생각!! 
+# 기본적으로 job 하나당 서버 하나! 
