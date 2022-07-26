@@ -27,8 +27,8 @@ jobs:
       shell: bash
       run: |
         echo "WORKFLOW: ${{ env.WORKFLOW_LEVEL }}"
-        echo "STEP 1: $STEP_1"
-        echo "STEP 2: $STEP_2"
+        echo "STEP 1: ${{ env.STEP_1 }}"
+        echo "STEP 2: ${{ env.STEP_2 }}"
 
 # 환경변수 표현! 
 #power shell은 변수 가져ㅗ는 방식이 다르지? bash랑 다름 
