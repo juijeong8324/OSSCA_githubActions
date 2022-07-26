@@ -13,24 +13,28 @@ jobs:
     # ['windows-latest', 'ubuntu-latest','macos-latest'] # 어떤 운영체제에서 실행시킬 것인지 설정!! ㅣ건 3개의 OSd에서 동시에 실행 가능! 
   
     steps:
-    - name: 'Set environment variable 1'
+    - name: 'Set output value 1'
+      id: step1
       shell: bash
       run: |
-        echo "STEP_1 ='This value comes from the step 1'" >> $GITHUB_ENV
+        STEP_1 = 'This value comes from the step 2'
 
-    - name: 'Set environment variable 2'
+        echo "::set-output name=value1::$STEP_1"
+
+    - name: 'Set output value 2'
+      id: step2
       shell: pwsh
       run : |
-        echo "STEP_2 ='This value comes from the step 2'" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf-8 -Append
+        STEP_2 = 'This value comes from the step 2'
 
-    - name : 'Get environment variables'
+        echo "::set-output name=value2::$STEP_2"
+
+    - name : 'Get values'
       shell: bash
       run: |
-        echo "WORKFLOW: ${{ env.WORKFLOW_LEVEL }}"
-        echo "STEP 1: ${{ env.STEP_1 }}"
-        echo "STEP 2: ${{ env.STEP_2 }}"
-
-# 환경변수 표현! 
-#power shell은 변수 가져ㅗ는 방식이 다르지? bash랑 다름 
-# github action은 ${{}} 이렇게!! 
-# GITHUB_ENV에 "STEP1~"을 저장해라! 라는 명령어다! 
+        echo "STEP 1: ${{ steps.step1.outputs.value1 }}"
+        echo "STEP 2: ${{ steps.step1.outputs.value2 }}"
+                         
+                        
+# 변수값 지정 후 
+# output 변수 이름을 step1 이라 하고 그 STEP1에 할당! 
