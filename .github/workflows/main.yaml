@@ -17,7 +17,7 @@ jobs:
           id: step1
           shell: bash
           run: |
-            $STEP_1 = 'This value comes from the step 1'
+            STEP_1 = 'This value comes from the step 1'
 
             echo "::add-mask::$STEP_1"
             echo "::set-output name=value1::$STEP_1"
@@ -26,7 +26,7 @@ jobs:
           id: step2
           shell: pwsh
           run : |
-            $STEP_2 = 'This value comes from the step 2'
+            STEP_2 = 'This value comes from the step 2'
 
             echo "::set-output name=value2::$STEP_2"
 
@@ -35,9 +35,16 @@ jobs:
           run: |
             echo "STEP 1: ${{ steps.step1.outputs.value1 }}"
             echo "STEP 2: ${{ steps.step1.outputs.value2 }}"
+            echo "SECRET 1: ${{ secrets.SECRET_1 }}"
+
+            if ("${{ secrets.SECRET_1 }}" -eq "Hello World") {
+              echo "TRUE"
+            } else {
+              echo "FALSE"
+            }
                          
                         
 # 변수값 지정 후 
 # output 변수 이름을 step1 이라 하고 그 STEP1에 할당! 
 # set-ouput이라는게 다른 step에서 참조해줄 수 있게 함
-# add-mask하면 민감 정보를 ***이렇게 표시하게 함! 
+# add-mask하면 민감 정보를 ***이렇게 표시하게 함! -> Secret 이용할 수도 있음!! 
