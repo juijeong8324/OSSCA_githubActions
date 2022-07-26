@@ -24,14 +24,25 @@ jobs:
         with:
           node-version: ${{ matrix.nodejs }}
 
+      - name: 'Run only on Windows'
+        if: matrix.os == 'windows-latest'
+        shell: bash
+        run: |
+          echo "Windows Only"
+
+      - name: 'Run not on Windows'
+        if: matrix.os != 'windows-latest'
+        shell: bash
+        run: |
+          echo "Not Windows"
+
+
       - name: 'Check node.js version on ${{ matrix.os }}'
         shell: bash
         run: |
           echo "nodejs version: $(node --version)"
 
     
-
-## 즉 총 6번 돈다 os버전 * nodejs 버전 == 6
 
                          
 
