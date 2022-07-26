@@ -17,8 +17,9 @@ jobs:
       id: step1
       shell: bash
       run: |
-        STEP_1 = 'This value comes from the step 2'
+        STEP_1 = 'This value comes from the step 1'
 
+        echo "::add-mask::$STEP_1"
         echo "::set-output name=value1::$STEP_1"
 
     - name: 'Set output value 2'
@@ -38,3 +39,4 @@ jobs:
                         
 # 변수값 지정 후 
 # output 변수 이름을 step1 이라 하고 그 STEP1에 할당! 
+# set-ouput이라는게 다른 step에서 참조해줄 수 있게 함
