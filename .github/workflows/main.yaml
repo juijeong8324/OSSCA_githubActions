@@ -9,39 +9,21 @@ env:
 jobs: 
   fist-job: 
     name: 'first Job'
-    runs-on : 'ubuntu-latest'
-    # ['windows-latest', 'ubuntu-latest','macos-latest'] # 어떤 운영체제에서 실행시킬 것인지 설정!! ㅣ건 3개의 OSd에서 동시에 실행 가능! 
+
+    strategy:
+      matrix:
+        os: ['windows-latest', 'ubuntu-latest','macos-latest']
+
+    runs-on : ${{ matrix.os }}
+    # 즉 first job이 각 os에서 3번 돈다! 
   
     steps:
-    - name: 'Set output value 1'
-      id: step1
+    - name: 'Say Hello on ${{ matrix.os }}'
       shell: bash
       run: |
-        STEP_1 = 'This value comes from the step 1'
+        echo "Hello from ${{ matrix.os }}"
 
-        echo "::add-mask::$STEP_1"
-        echo "::set-output name=value1::$STEP_1"
 
-    - name: 'Set output value 2'
-      id: step2
-      shell: pwsh
-      run : |
-        STEP_2 = 'This value comes from the step 2'
-
-        echo "::set-output name=value2::$STEP_2"
-
-    - name : 'Get values'
-      shell: bash
-      run: |
-        echo "STEP 1: ${{ steps.step1.outputs.value1 }}"
-        echo "STEP 2: ${{ steps.step1.outputs.value2 }}"
-        echo "SECRET 1: ${{ secrets.SECRET_1 }}"
-
-        if ("${{ secrets.SECRET_1 }}" -eq "Hello World") {
-           echo "TRUE"
-        } else {
-          echo "FALSE"
-        }
                          
                         
 # 변수값 지정 후 
