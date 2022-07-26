@@ -13,20 +13,25 @@ jobs:
     strategy:
       matrix:
         os: ['windows-latest', 'ubuntu-latest','macos-latest']
+        nodejs : ['14.x', '16.x']
 
     runs-on : ${{ matrix.os }}
     # 즉 first job이 각 os에서 3번 돈다! 
   
     steps:
-    - name: 'Say Hello on ${{ matrix.os }}'
-      shell: bash
-      run: |
-        echo "Hello from ${{ matrix.os }}"
+      - name: 'Setup node.js version'
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.nodejs }}
 
+      - name: 'Check node.js version on ${{ matrix.os }}'
+        shell: bash
+        run: |
+          echo "nodejs version: $(node --version)"
+
+    
+
+## 즉 총 6번 돈다 os버전 * nodejs 버전 == 6
 
                          
-                        
-# 변수값 지정 후 
-# output 변수 이름을 step1 이라 하고 그 STEP1에 할당! 
-# set-ouput이라는게 다른 step에서 참조해줄 수 있게 함
-# add-mask하면 민감 정보를 ***이렇게 표시하게 함! -> Secret 이용할 수도 있음!! 
+
