@@ -8,6 +8,7 @@ env:
 jobs: 
   fist-job: 
     name: 'first Job'
+    if: github.event_name == 'pull_request'
 
     strategy:
       matrix:
@@ -15,7 +16,6 @@ jobs:
         nodejs : ['14.x', '16.x']
 
     runs-on : ${{ matrix.os }}
-    # 즉 first job이 각 os에서 3번 돈다! 
   
     steps:
       - name: 'Setup node.js version'
@@ -23,10 +23,20 @@ jobs:
         with:
           node-version: ${{ matrix.nodejs }}
 
+      - name: 'Run only on Windows'
+        if: matrix.os == 'windows-latest'
+        shell: bash
+        run: |
+          echo "Windows Only"
+
+      - name: 'Run not on Windows'
+        if: matrix.os != 'windows-latest'
+        shell: bash
+        run: |
+          echo "Not Windows"
+
+
       - name: 'Check node.js version on ${{ matrix.os }}'
         shell: bash
         run: |
           echo "nodejs version: $(node --version)"
-
-  
-## 즉 총 6번 돈다 os버전 * nodejs 버전 == 6
