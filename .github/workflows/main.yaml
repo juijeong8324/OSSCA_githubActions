@@ -12,7 +12,7 @@ jobs:
     runs-on : 'ubuntu-latest'
    
     env:
-      JOB_LEVEL_1: 'This value comes fom the job level'
+      JOB_LEVEL_1: 'This value comes fom the job level 1'
     steps:
     - name: 'Say Hello World on step 1'
       shell: bash
@@ -35,7 +35,7 @@ jobs:
         echo "Lorem Ipsum on step 2"
         echo "$env:WORKFLOW_LEVEL"
         echo "$env:JOB_LEVEL_1"
-        echo "$env: JOB_LEVEL_2"
+        echo "$env:JOB_LEVEL_2"
         echo "$env:STEP_LEVEL_1"
         echo "$env:STEP_LEVEL_2"
     # 환경 변수로 접근 
@@ -43,10 +43,10 @@ jobs:
 #power shell은 변수 가져오는 방식이 다르다!(bash랑 다름 주의)
 #job 접근도 가능한지 확인해보기 위해 
   second-job:
-      name: 'first Job'
+      name: 'second Job'
       runs-on : 'ubuntu-latest'
       env:
-        JOB_LEVEL_1: 'This value comes fom the job level'
+        JOB_LEVEL_2: 'This value comes fom the job level 2'
       steps:
         - name: 'Say Hello World on step 1'
           shell: bash
@@ -59,7 +59,7 @@ jobs:
             echo "job level 2 : $JOB_LEVEL_2"
             echo "step level 1 : $STEP_LEVEL_1"
             echo "step level 2 : $STEP_LEVEL_2"
-            
+
         - name: 'Say Lorem Ipsum on step 2'
           shell: pwsh
           env:
@@ -68,6 +68,6 @@ jobs:
             echo "Lorem Ipsum on step 2"
             echo "$env:WORKFLOW_LEVEL"
             echo "$env:JOB_LEVEL_1"
-            echo "$env: JOB_LEVEL_2"
+            echo "$env:JOB_LEVEL_2"
             echo "$env:STEP_LEVEL_1"
             echo "$env:STEP_LEVEL_2"
