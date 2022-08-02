@@ -31,5 +31,5 @@ jobs:
       shell: bash
       run: |
         echo "STEP 1: ${{ steps.step1.outputs.value1 }}"
-        echo "STEP 2: ${{ steps.step1.outputs.value2 }}"
+        echo "STEP 2: ${{ steps.step2.outputs.value2 }}"
 # STEP1 output은 마스크 처리 됨. 
