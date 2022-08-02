@@ -23,7 +23,7 @@ jobs:
       id: step2
       shell: pwsh
       run : |
-        STEP_2='This value comes from the step 2'
+        $STEP_2='This value comes from the step 2'
 
         echo "::set-output name=value2::$STEP_2"
 
