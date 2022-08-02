@@ -1,20 +1,32 @@
-name: 'My First GitHub Actions'
+name : 'My First GitHub Actions Workflow' 
 
-on: push
+on: push 
 
-jobs:
-  first-job:
-    name: 'First Job'
+env:
+  WORKFLOW_LEVEL: 'This value comes fom the workflow level'
+
+jobs: 
+  fist-job: 
+    name: 'first Job'
 
     strategy:
       matrix:
-        os: [ 'windows-latest', 'macos-latest', 'ubuntu-latest' ]
-        message: [ 'Hello World', 'Lorem Ipsum' ]
+        os: ['windows-latest', 'ubuntu-latest','macos-latest']
+        nodejs : ['14.x', '16.x']
 
-    runs-on: ${{ matrix.os }}
-
+    runs-on : ${{ matrix.os }}
+    # 즉 first job이 각 os에서 3번 돈다! 
+  
     steps:
-    - name: Greetings from ${{ matrix.os }}
-      shell: bash
-      run: |
-        echo "${{ matrix.message }} from ${{ matrix.os }}"
+      - name: 'Setup node.js version'
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.nodejs }}
+
+      - name: 'Check node.js version on ${{ matrix.os }}'
+        shell: bash
+        run: |
+          echo "nodejs version: $(node --version)"
+
+  
+## 즉 총 6번 돈다 os버전 * nodejs 버전 == 6
