@@ -1,23 +1,20 @@
-name : 'My First GitHub Actions Workflow' 
+name: 'My First GitHub Actions'
 
-on: push 
+on: push
 
-env:
-  WORKFLOW_LEVEL: 'This value comes fom the workflow level'
-
-jobs: 
-  fist-job: 
-    name: 'first Job'
+jobs:
+  first-job:
+    name: 'First Job'
 
     strategy:
       matrix:
-        os: ['windows-latest', 'ubuntu-latest','macos-latest']
+        os: [ 'windows-latest', 'macos-latest', 'ubuntu-latest' ]
+        message: [ 'Hello World', 'Lorem Ipsum' ]
 
-    runs-on : ${{ matrix.os }}
-    # 즉 first job이 각 os에서 총 3번 돈다! dd
-  
+    runs-on: ${{ matrix.os }}
+
     steps:
-    - name: 'Say Hello on ${{ matrix.os }}'
+    - name: Greetings from ${{ matrix.os }}
       shell: bash
       run: |
-        echo "Hello from ${{ matrix.os }}"
+        echo "${{ matrix.message }} from ${{ matrix.os }}"
