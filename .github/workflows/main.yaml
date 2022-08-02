@@ -20,7 +20,7 @@ jobs:
        STEP_LEVEL_1: 'This value comes fom the step 1'
       run: |
         echo "Hello World from Step 1"
-        echo "workflow level: $WORKFLOW_LEVEL"
+        echo "workflow level : $WORKFLOW_LEVEL"
         echo "job level 1 : $JOB_LEVEL_1"
         echo "job level 2 : $JOB_LEVEL_2"
         echo "step level 1 : $STEP_LEVEL_1"
@@ -33,15 +33,15 @@ jobs:
        STEP_LEVEL_2: 'This value comes fom the step 2'
       run: |
         echo "Lorem Ipsum on step 2"
-        echo "$env:WORKFLOW_LEVEL"
-        echo "$env:JOB_LEVEL_1"
-        echo "$env:JOB_LEVEL_2"
-        echo "$env:STEP_LEVEL_1"
-        echo "$env:STEP_LEVEL_2"
+        echo "workflow level: $env:WORKFLOW_LEVEL"
+        echo "job level 1 : $env:JOB_LEVEL_1"
+        echo "job level 2 : $env:JOB_LEVEL_2"
+        echo "step level 1 : $env:STEP_LEVEL_1"
+        echo "step level 2 : $env:STEP_LEVEL_2"
     # 환경 변수로 접근 
 
 #power shell은 변수 가져오는 방식이 다르다!(bash랑 다름 주의)
-#job 접근도 가능한지 확인해보기 위해 
+#job이 다른 경우에도 변수간에 접근이 가능한지 확인해보기 위해 
   second-job:
       name: 'second Job'
       runs-on : 'ubuntu-latest'
@@ -66,8 +66,8 @@ jobs:
             STEP_LEVEL_2: 'This value comes fom the step 2'
           run: |
             echo "Lorem Ipsum on step 2"
-            echo "$env:WORKFLOW_LEVEL"
-            echo "$env:JOB_LEVEL_1"
-            echo "$env:JOB_LEVEL_2"
-            echo "$env:STEP_LEVEL_1"
-            echo "$env:STEP_LEVEL_2"
+            echo "workflow level: $env:WORKFLOW_LEVEL"
+            echo "job level 1 : $env:JOB_LEVEL_1"
+            echo "job level 2 : $env:JOB_LEVEL_2"
+            echo "step level 1 : $env:STEP_LEVEL_1"
+            echo "step level 2 : $env:STEP_LEVEL_2"
