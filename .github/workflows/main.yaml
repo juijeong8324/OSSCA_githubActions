@@ -70,9 +70,10 @@ jobs:
         mv artifacts/api/apiapp.zip artifacts/apiapp.zip
 
     - name: Release FunctionApp artifact to GitHub
-      uses: "marvinpinto/action-automatic-releases@v1.2.1"
+      uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}" # 자동으로 생성되는 토큰임 
+        automatic_release_tag: "latest"
         prerelease: false
         files: |
           artifacts/apiapp.zip
