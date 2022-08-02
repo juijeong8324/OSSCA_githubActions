@@ -2,9 +2,9 @@ name: 'My First GitHub Actions'
 
 on:
   push:
-    branches:
+    branches: # main branch에서 push가 일어났을 때 발생 
     - main
-    tags:
+    tags: # 또한 v* tag일 때 발생
     - 'v*'
   pull_request:
     branches:
