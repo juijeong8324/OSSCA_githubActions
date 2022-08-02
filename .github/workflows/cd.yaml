@@ -48,5 +48,6 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
         title: ${{ inputs.title }}
+        automatic_release_tag : latest
         files: |
           artifacts/${{ inputs.artifact_name }}-${{ inputs.env }}.zip
