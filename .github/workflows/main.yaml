@@ -1,15 +1,11 @@
-name : 'My First GitHub Actions Workflow' 
+name: 'My First GitHub Actions Workflow'
 
-on: push  
+on: push
 
-env:
-  WORKFLOW_LEVEL: 'This value comes fom the workflow level'
-
-jobs: 
-  build-job: 
-    name: 'build Job'
-
-    runs-on : ubuntu-latest
+jobs:
+  build-job:
+    name: 'Build Job'
+    runs-on: ubuntu-latest
 
     steps:
       - name: 'Say Hello'
@@ -19,9 +15,6 @@ jobs:
 
   deploy-to-dev-job:
     name: 'Deployment Job to DEV'
-    needs:
-    - build-job
-# build-job이 실행된 후에 실행해줘! 
     runs-on: ubuntu-latest
 
     steps:
@@ -29,12 +22,13 @@ jobs:
         shell: bash
         run: |
           echo "DEVELOPERS"
-
+          
   deploy-to-prod-job:
     name: 'Deployment Job to PROD'
     needs:
     - build-job
-# build-job이 실행된 후에 실행해줘! 
+    - deploy-to-dev-job
+
     runs-on: ubuntu-latest
 
     steps:
@@ -42,5 +36,3 @@ jobs:
         shell: bash
         run: |
           echo "PRODUCTION"
-    
-# 반드시 작업 순서가 정해진 채로 실행되어야 하는 경우
