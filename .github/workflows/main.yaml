@@ -1,24 +1,22 @@
-name: 'My First GitHub Actions'
+name: 'Manual Release'
 
 on:
-  push:
-    branches: # main branch에서 push가 일어났을 때 발생 
-    - main
-    tags: # 또한 v* tag일 때 발생
-    - 'v*'
-  pull_request:
-    branches:
-    - main
+  workflow_dispatch:
+    inputs:
+      title:
+        type: string
+        required: true
+        description: Enter the release title
 
 jobs:
-  build: # job 이름 
+  build:
     name: Build Apps
 
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout the repo
-      uses: actions/checkout@v2 # 액션 사용
+      uses: actions/checkout@v2
 
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v1
@@ -46,8 +44,7 @@ jobs:
         name: apiapp
         path: api/bin/published
 
-
-  release: # job 이름 
+  release:
     name: Release Apps
     needs: build
 
@@ -72,9 +69,8 @@ jobs:
     - name: Release FunctionApp artifact to GitHub
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}" # 자동으로 생성되는 토큰임 
-        automatic_release_tag: "latest"
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
+        title: ${{ github.event.inputs.title }}
         files: |
           artifacts/apiapp.zip
-    #sㄴㄴㄴ
