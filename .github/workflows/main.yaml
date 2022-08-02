@@ -14,7 +14,7 @@ jobs:
         os: ['windows-latest', 'ubuntu-latest','macos-latest']
 
     runs-on : ${{ matrix.os }}
-    # 즉 first job이 각 os에서 총 3번 돈다! 
+    # 즉 first job이 각 os에서 총 3번 돈다! dd
   
     steps:
     - name: 'Say Hello on ${{ matrix.os }}'
