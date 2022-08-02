@@ -16,10 +16,20 @@ jobs:
     with:
       artifact_name: apiapp
 
-  call_release:
+  call_release_dev:
     uses: ./.github/workflows/cd.yaml
     needs: call_build
     with:
       title: latest
       artifact_name: apiapp
+      env: DEV
+    secrets: inherit
+
+  call_release_prod:
+    uses: ./.github/workflows/cd.yaml
+    needs: call_release_dev
+    with:
+      title: latest
+      artifact_name: apiapp
+      env: PROD
     secrets: inherit
