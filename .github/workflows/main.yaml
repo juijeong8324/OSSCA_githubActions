@@ -11,14 +11,14 @@ on:
     - main
 
 jobs:
-  build:
+  build: # job 이름 
     name: Build Apps
 
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout the repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2 # 액션 사용
 
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v1
@@ -45,12 +45,9 @@ jobs:
       with:
         name: apiapp
         path: api/bin/published
-        
-    - name: Automatic Releases
-      uses: marvinpinto/action-automatic-releases@v1.2.1
 
 
-  release:
+  release: # job 이름 
     name: Release Apps
     needs: build
 
@@ -73,9 +70,9 @@ jobs:
         mv artifacts/api/apiapp.zip artifacts/apiapp.zip
 
     - name: Release FunctionApp artifact to GitHub
-      uses: "marvinpinto/action-automatic-releases@latest"
+      uses: "marvinpinto/action-automatic-releases@v1.2.1"
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        repo_token: "${{ secrets.GITHUB_TOKEN }}" # 자동으로 생성되는 토큰임 
         prerelease: false
         files: |
           artifacts/apiapp.zip
