@@ -11,19 +11,25 @@ jobs:
     runs-on : 'ubuntu-latest'
   
     steps:
-    - name: 'Set environment variable 1'
+    - name: 'Set output value 1'
+      id: step1
       shell: bash
       run: |
-        echo "STEP_1='This value comes from the step 1'" >> $GITHUB_ENV
-    # GITHUB_ENV에 "STEP1~"을 저장해라!
-    - name: 'Set environment variable 2'
+        $STEP_1 = 'This value comes from the step 1'
+        echo "::add-mask::$STEP_1" 
+        echo "::set-output name=value1::$STEP_1"
+
+    - name: 'Set output value 2'
+      id: step2
       shell: pwsh
       run : |
-        echo "STEP_2='This value comes from the step 2'" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf-8 -Append
+        $STEP_2 = 'This value comes from the step 2'
 
-    - name : 'Get environment variables'
+        echo "::set-output name=value2::$STEP_2"
+
+    - name : 'Get values'
       shell: bash
       run: |
-        echo "WORKFLOW: ${{ env.WORKFLOW_LEVEL }}"
-        echo "STEP 1: ${{ env.STEP_1 }}"
-        echo "STEP 2: ${{ env.STEP_2 }}"
+        echo "STEP 1: ${{ steps.step1.outputs.value1 }}"
+        echo "STEP 2: ${{ steps.step1.outputs.value2 }}"
+# STEP1 output은 마스크 처리 됨. 
