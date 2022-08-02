@@ -1,6 +1,6 @@
 name : 'My First GitHub Actions Workflow' 
 
-on: push 
+on: push  
 
 env:
   WORKFLOW_LEVEL: 'This value comes fom the workflow level'
@@ -15,15 +15,16 @@ jobs:
       id: step1
       shell: bash
       run: |
-        STEP_1='This value comes from the step 1'
-        echo "::add-mask::$STEP_1" 
+        STEP_1 = 'This value comes from the step 1'
+
+        echo "::add-mask::$STEP_1"
         echo "::set-output name=value1::$STEP_1"
 
     - name: 'Set output value 2'
       id: step2
       shell: pwsh
       run : |
-        $STEP_2='This value comes from the step 2'
+        STEP_2 = 'This value comes from the step 2'
 
         echo "::set-output name=value2::$STEP_2"
 
@@ -31,5 +32,11 @@ jobs:
       shell: bash
       run: |
         echo "STEP 1: ${{ steps.step1.outputs.value1 }}"
-        echo "STEP 2: ${{ steps.step2.outputs.value2 }}"
-# STEP1 output은 마스크 처리 됨. 
+        echo "STEP 2: ${{ steps.step1.outputs.value2 }}"
+        echo "SECRET 1: ${{ secrets.SECRET_1 }}"
+
+        if ("${{ secrets.SECRET_1 }}" -eq "Hello World") {
+           echo "TRUE"
+        } else {
+          echo "FALSE"
+        }
