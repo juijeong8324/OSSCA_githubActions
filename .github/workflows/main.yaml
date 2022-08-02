@@ -2,49 +2,19 @@ name : 'My First GitHub Actions Workflow'
 
 on: push 
 # on은 깃허브 액션이 작동하게 하는 trigger 같은 것 
-
-env:
-  WORKFLOW_LEVEL: 'This value comes fom the workflow level'
-
 jobs: 
-  build-job: 
-    name: 'build Job'
-
-    runs-on : ubuntu-latest
-
-    steps:
-      - name: 'Say Hello'
-        shell: bash
-        run: |
-          echo "Hello World"
-
-  deploy-to-dev-job:
-    name: 'Deployment Job to DEV'
-    needs:
-    - build-job
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 'Say DEV'
-        shell: bash
-        run: |
-          echo "DEVELOPERS"
-  deploy-to-prod-job:
-    name: 'Deployment Job to PROD'
-    needs:
-    - build-job
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 'Say PROD'
-        shell: bash
-        run: |
-          echo "PRODUCTION"
-
-
+  fist-job: 
+    name: 'first Job'
+    runs-on : 'ubuntu-latest'
+    # ['windows-latest', 'ubuntu-latest','macos-latest'] # 어떤 운영체제에서 실행시킬 것인지 설정!! ㅣ건 3개의 OSd에서 동시에 실행 가능! 
     
-# 반드시 작업 순서가 정해진 채로 실행되어야 하는 경우
-                         
+    steps:
+    - name: 'Say Hello World on step 1'
+      shell: bash
+      run: |
+        echo "Hello World from Step 1"
 
+    - name: 'Say Lorem Ipsum on step 2'
+      shell: pwsh
+      run: |
+        echo "Lorem Ipsum on step 2"
