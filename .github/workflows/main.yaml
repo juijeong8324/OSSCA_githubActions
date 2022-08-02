@@ -12,12 +12,12 @@ on:
 
 jobs:
   call_build:
-    uses: ./.github/workflows/ci.yaml@main
+    uses: ./.github/workflows/ci.yaml
     with:
       artifact_name: apiapp
 
   call_release:
-    uses: ./.github/worlfows/cd.yaml@main
+    uses: ./.github/worlfows/cd.yaml
     needs: call_build
     with:
       title: latest
