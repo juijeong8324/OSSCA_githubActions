@@ -45,6 +45,10 @@ jobs:
       with:
         name: apiapp
         path: api/bin/published
+        
+    - name: Automatic Releases
+      uses: marvinpinto/action-automatic-releases@v1.2.1
+
 
   release:
     name: Release Apps
